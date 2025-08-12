@@ -403,17 +403,48 @@ const PoliciesTable: React.FC<PoliciesTableProps> = ({
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Premium Range
                 </label>
-                <div className="px-3 py-2">
-                  <input
-                    type="range"
-                    min={minPremium}
-                    max={maxPremium}
-                    value={premiumRangeFilter[1]}
-                    onChange={(e) => setPremiumRangeFilter([premiumRangeFilter[0], parseInt(e.target.value)])}
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer premium-slider"
-                  />
-                  <div className="flex justify-center text-xs text-gray-600 mt-2">
-                    <span className="font-medium">Up to: ${premiumRangeFilter[1].toLocaleString()}</span>
+                <div className="px-3 py-2 space-y-3">
+                  {/* Min Range Slider */}
+                  <div>
+                    <label className="block text-xs text-gray-600 mb-1">Minimum: ${premiumRangeFilter[0].toLocaleString()}</label>
+                    <input
+                      type="range"
+                      min={minPremium}
+                      max={maxPremium}
+                      value={premiumRangeFilter[0]}
+                      onChange={(e) => {
+                        const newMin = parseInt(e.target.value);
+                        if (newMin <= premiumRangeFilter[1]) {
+                          setPremiumRangeFilter([newMin, premiumRangeFilter[1]]);
+                        }
+                      }}
+                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer premium-slider"
+                    />
+                  </div>
+                  
+                  {/* Max Range Slider */}
+                  <div>
+                    <label className="block text-xs text-gray-600 mb-1">Maximum: ${premiumRangeFilter[1].toLocaleString()}</label>
+                    <input
+                      type="range"
+                      min={minPremium}
+                      max={maxPremium}
+                      value={premiumRangeFilter[1]}
+                      onChange={(e) => {
+                        const newMax = parseInt(e.target.value);
+                        if (newMax >= premiumRangeFilter[0]) {
+                          setPremiumRangeFilter([premiumRangeFilter[0], newMax]);
+                        }
+                      }}
+                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer premium-slider"
+                    />
+                  </div>
+                  
+                  {/* Range Display */}
+                  <div className="flex justify-between text-xs text-gray-600 pt-2 border-t border-gray-200">
+                    <span className="font-medium">${premiumRangeFilter[0].toLocaleString()}</span>
+                    <span className="text-gray-400">to</span>
+                    <span className="font-medium">${premiumRangeFilter[1].toLocaleString()}</span>
                   </div>
                 </div>
               </div>
