@@ -191,18 +191,24 @@ const PolicyViewModal: React.FC<PolicyViewModalProps> = ({ policy, onClose }) =>
                       </p>
                       
                       {/* Date and Time */}
-                      {step.date && step.time && (
-                        <div className="text-xs text-gray-600 space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="flex items-center justify-center space-x-1">
-                            <Calendar className="h-3 w-3" />
-                            <span>{new Date(step.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                      <div className="text-xs text-gray-600 space-y-1 mt-2">
+                        {step.date && step.time ? (
+                          <>
+                            <div className="flex items-center justify-center space-x-1">
+                              <Calendar className="h-3 w-3" />
+                              <span>{new Date(step.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                            </div>
+                            <div className="flex items-center justify-center space-x-1">
+                              <Clock className="h-3 w-3" />
+                              <span>{step.time}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="text-gray-400 italic">
+                            Pending
                           </div>
-                          <div className="flex items-center justify-center space-x-1">
-                            <Clock className="h-3 w-3" />
-                            <span>{step.time}</span>
-                          </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                       
                       {/* Status Badges */}
                       {step.status === 'current' && (
